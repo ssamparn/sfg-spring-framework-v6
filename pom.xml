@@ -16,5 +16,6 @@
   <modules>
     <module>spring-6-webapp</module>
     <module>spring-6-di</module>
+    <module>spring-6-rest-mvc</module>
   </modules>
 </project>
