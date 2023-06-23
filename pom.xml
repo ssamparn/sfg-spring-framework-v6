@@ -18,5 +18,6 @@
     <module>spring-6-di</module>
     <module>spring-6-rest-mvc</module>
     <module>spring-6-auth-server</module>
+    <module>spring-6-resource-server</module>
   </modules>
 </project>
