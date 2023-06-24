@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -22,7 +23,7 @@ public class BeerServiceImpl implements BeerService {
     private Map<UUID, BeerDto> beerMap;
 
     public BeerServiceImpl() {
-        this.beerMap = new HashMap<>();
+        this.beerMap = new LinkedHashMap<>();
 
         BeerDto beer1 = BeerDto.builder()
                 .id(UUID.randomUUID())
