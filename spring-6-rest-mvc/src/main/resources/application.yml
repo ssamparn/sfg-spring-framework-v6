@@ -1,9 +1,13 @@
 server:
   port: 8080
 
-spring:
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:9000
+logging:
+  level:
+    com.sfg.course.spring6restmvc: debug
+
+#spring:
+#  security:
+#    oauth2:
+#      resourceserver:
+#        jwt:
+#          issuer-uri: http://localhost:9000

@@ -10,8 +10,8 @@ import java.util.UUID;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-@Builder
 @Data
+@Builder
 public class BeerDto {
     private UUID id;
     private Integer version;
