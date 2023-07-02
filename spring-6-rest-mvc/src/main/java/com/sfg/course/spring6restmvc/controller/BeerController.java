@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 import java.util.UUID;
 
+import com.sfg.course.spring6restmvc.exception.NotFoundException;
 import com.sfg.course.spring6restmvc.model.BeerDto;
 import com.sfg.course.spring6restmvc.service.BeerService;
 import org.springframework.http.HttpHeaders;
@@ -55,7 +56,7 @@ public class BeerController {
 
         log.debug("Get Beer by Id - in controller");
 
-        return beerService.getBeerById(beerId);
+        return beerService.getBeerById(beerId).orElseThrow(NotFoundException::new);
     }
 
     @PutMapping(BEER_PATH_ID)

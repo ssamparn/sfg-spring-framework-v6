@@ -2,9 +2,11 @@ package com.sfg.course.spring6restmvc.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sfg.course.spring6restmvc.exception.NotFoundException;
 import com.sfg.course.spring6restmvc.model.Customer;
 import com.sfg.course.spring6restmvc.service.CustomerService;
 import com.sfg.course.spring6restmvc.service.impl.CustomerServiceImpl;
@@ -133,20 +135,20 @@ class CustomerControllerTest {
                 .andExpect(jsonPath("$.length()", is(3)));
     }
 
-//    @Test
-//    void getCustomerByIdNotFound() throws Exception {
-//
-//        given(customerService.getCustomerById(any(UUID.class))).willReturn(Optional.empty());
-//
-//        mockMvc.perform(get(CustomerController.CUSTOMER_PATH_ID, UUID.randomUUID()))
-//                .andExpect(status().isNotFound());
-//    }
+    @Test
+    void getCustomerByIdNotFound() throws Exception {
+
+        given(customerService.getCustomerById(any(UUID.class))).willReturn(Optional.empty());
+
+        mockMvc.perform(get(CustomerController.CUSTOMER_PATH_ID, UUID.randomUUID()))
+                .andExpect(status().isNotFound());
+    }
 
     @Test
     void getCustomerById() throws Exception {
         Customer customer = customerServiceImpl.getAllCustomers().get(0);
 
-        given(customerService.getCustomerById(customer.getId())).willReturn(customer);
+        given(customerService.getCustomerById(customer.getId())).willReturn(Optional.of(customer));
 
         mockMvc.perform(get(CustomerController.CUSTOMER_PATH_ID, customer.getId())
                         .accept(MediaType.APPLICATION_JSON))

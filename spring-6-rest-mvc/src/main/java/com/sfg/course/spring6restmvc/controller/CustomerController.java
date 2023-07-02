@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 import java.util.UUID;
 
+import com.sfg.course.spring6restmvc.exception.NotFoundException;
 import com.sfg.course.spring6restmvc.model.Customer;
 import com.sfg.course.spring6restmvc.service.CustomerService;
 import org.springframework.http.HttpHeaders;
@@ -56,7 +57,7 @@ public class CustomerController {
 
         log.debug("Get a Customer byId - in controller");
 
-        return customerService.getCustomerById(id);
+        return customerService.getCustomerById(id).orElseThrow(NotFoundException::new);
     }
 
     @PutMapping(CUSTOMER_PATH_ID)

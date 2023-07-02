@@ -2,6 +2,7 @@ package com.sfg.course.spring6restmvc.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -143,20 +144,20 @@ public class BeerControllerTest {
                 .andExpect(jsonPath("$.length()", is(3)));
     }
 
-//    @Test
-//    void getBeerByIdNotFound() throws Exception {
-//
-//        given(beerService.getBeerById(any(UUID.class))).willReturn(Optional.empty());
-//
-//        mockMvc.perform(get(BeerController.BEER_PATH_ID, UUID.randomUUID()))
-//                .andExpect(status().isNotFound());
-//    }
+    @Test
+    void getBeerByIdNotFound() throws Exception {
+
+        given(beerService.getBeerById(any(UUID.class))).willReturn(Optional.empty());
+
+        mockMvc.perform(get(BeerController.BEER_PATH_ID, UUID.randomUUID()))
+                .andExpect(status().isNotFound());
+    }
 
     @Test
     void getBeerById() throws Exception {
         BeerDto testBeer = beerServiceImpl.listBeers().get(0);
 
-        given(beerService.getBeerById(testBeer.getId())).willReturn(testBeer);
+        given(beerService.getBeerById(testBeer.getId())).willReturn(Optional.of(testBeer));
 
         mockMvc.perform(get(BeerController.BEER_PATH_ID, testBeer.getId())
                         .accept(MediaType.APPLICATION_JSON))
