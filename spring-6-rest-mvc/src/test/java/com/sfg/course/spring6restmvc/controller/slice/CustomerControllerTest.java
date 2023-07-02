@@ -1,4 +1,4 @@
-package com.sfg.course.spring6restmvc.controller;
+package com.sfg.course.spring6restmvc.controller.slice;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sfg.course.spring6restmvc.controller.CustomerController;
 import com.sfg.course.spring6restmvc.model.CustomerDto;
 import com.sfg.course.spring6restmvc.service.CustomerService;
 import com.sfg.course.spring6restmvc.service.impl.CustomerServiceImpl;

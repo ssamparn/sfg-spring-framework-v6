@@ -14,9 +14,9 @@ public interface CustomerService {
 
     CustomerDto saveNewCustomer(CustomerDto customer);
 
-    CustomerDto updateCustomerById(UUID customerId, CustomerDto customer);
+    void updateCustomerById(UUID customerId, CustomerDto customer);
 
-    CustomerDto deleteCustomerById(UUID customerId);
+    void deleteCustomerById(UUID customerId);
 
     void patchCustomerById(UUID customerId, CustomerDto customer);
 }

@@ -1,4 +1,4 @@
-package com.sfg.course.spring6restmvc.controller;
+package com.sfg.course.spring6restmvc.controller.slice;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sfg.course.spring6restmvc.controller.BeerController;
 import com.sfg.course.spring6restmvc.model.BeerDto;
 import com.sfg.course.spring6restmvc.service.BeerService;
 import com.sfg.course.spring6restmvc.service.impl.BeerServiceImpl;
@@ -59,16 +60,15 @@ public class BeerControllerTest {
         beerServiceImpl = new BeerServiceImpl();
     }
 
-////    public static final SecurityMockMvcRequestPostProcessors.JwtRequestPostProcessor jwtRequestPostProcessor =
-////            jwt().jwt(jwt -> {
-////                jwt.claims(claims -> {
-////                            claims.put("scope", "message-read");
-////                            claims.put("scope", "message-write");
-////                        })
-////                        .subject("messaging-client")
-////                        .notBefore(Instant.now().minusSeconds(5l));
-////            });
-//
+//    public static final SecurityMockMvcRequestPostProcessors.JwtRequestPostProcessor jwtRequestPostProcessor =
+//            jwt().jwt(jwt -> {
+//                jwt.claims(claims -> {
+//                            claims.put("scope", "message-read");
+//                            claims.put("scope", "message-write");
+//                        })
+//                        .subject("messaging-client")
+//                        .notBefore(Instant.now().minusSeconds(5l));
+//            });
 
     @Test
     void testPatchBeer() throws Exception {
@@ -93,6 +93,8 @@ public class BeerControllerTest {
     void testDeleteBeer() throws Exception {
         BeerDto beer = beerServiceImpl.listBeers().get(0);
 
+        given(beerService.deleteById(any())).willReturn(true);
+
         mockMvc.perform(delete(BeerController.BEER_PATH_ID, beer.getId())
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
@@ -105,6 +107,8 @@ public class BeerControllerTest {
     @Test
     void testUpdateBeer() throws Exception {
         BeerDto beer = beerServiceImpl.listBeers().get(0);
+
+        given(beerService.updateBeerById(any(), any())).willReturn(Optional.of(beer));
 
         mockMvc.perform(put(BeerController.BEER_PATH_ID, beer.getId())
                         .accept(MediaType.APPLICATION_JSON)

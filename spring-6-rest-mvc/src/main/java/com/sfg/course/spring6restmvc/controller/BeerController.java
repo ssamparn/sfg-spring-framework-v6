@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import com.sfg.course.spring6restmvc.exception.NotFoundException;
@@ -41,7 +42,7 @@ public class BeerController {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", BEER_PATH + "/" + savedBeer.getId().toString());
 
-        return new ResponseEntity(savedBeer, headers, HttpStatus.CREATED);
+        return new ResponseEntity<>(savedBeer, headers, HttpStatus.CREATED);
     }
 
     @GetMapping(value = BEER_PATH)
@@ -52,23 +53,29 @@ public class BeerController {
     }
 
     @GetMapping(value = BEER_PATH_ID)
-    public BeerDto getBeerById(@PathVariable("beerId") UUID beerId){
+    public ResponseEntity<BeerDto> getBeerById(@PathVariable("beerId") UUID beerId){
 
         log.debug("Get Beer by Id - in controller");
 
-        return beerService.getBeerById(beerId).orElseThrow(NotFoundException::new);
+        BeerDto beerDto = beerService.getBeerById(beerId).orElseThrow(NotFoundException::new);
+
+        return new ResponseEntity<>(beerDto, HttpStatus.OK);
     }
 
     @PutMapping(BEER_PATH_ID)
     public ResponseEntity<BeerDto> updateById(@PathVariable("beerId") UUID beerId, @RequestBody BeerDto beer) {
 
-        BeerDto beerDto = beerService.updateBeerById(beerId, beer);
+        Optional<BeerDto> beerDto = beerService.updateBeerById(beerId, beer);
 
-        return new ResponseEntity(beerDto, HttpStatus.OK);
+        if(beerDto.isEmpty()) {
+            throw new NotFoundException();
+        }
+
+        return new ResponseEntity<>(beerDto.get(), HttpStatus.OK);
     }
 
     @PatchMapping(BEER_PATH_ID)
-    public ResponseEntity updateBeerPatchById(@PathVariable("beerId") UUID beerId, @RequestBody BeerDto beer){
+    public ResponseEntity<Void> updateBeerPatchById(@PathVariable("beerId") UUID beerId, @RequestBody BeerDto beer){
 
         beerService.patchBeerById(beerId, beer);
 
@@ -76,10 +83,11 @@ public class BeerController {
     }
 
     @DeleteMapping(BEER_PATH_ID)
-    public ResponseEntity<BeerDto> deleteById(@PathVariable("beerId") UUID beerId){
+    public ResponseEntity<Void> deleteById(@PathVariable("beerId") UUID beerId){
 
-        BeerDto removedBeer = beerService.deleteById(beerId);
-
-        return new ResponseEntity(removedBeer, HttpStatus.NO_CONTENT);
+        if (!beerService.deleteById(beerId)) {
+            throw new NotFoundException();
+        }
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }
