@@ -31,7 +31,7 @@ public class BeerController {
     private final BeerService beerService;
 
     @PostMapping(value = BEER_PATH)
-    public ResponseEntity<BeerDto> handlePost(@RequestBody BeerDto beer){
+    public ResponseEntity<BeerDto> newBeer(@RequestBody BeerDto beer){
 
         log.debug("Creating New Beer - in controller");
 

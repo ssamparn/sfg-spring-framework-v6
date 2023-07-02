@@ -31,7 +31,7 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @PostMapping(CUSTOMER_PATH)
-    public ResponseEntity<Customer> handlePost(@RequestBody Customer customer) {
+    public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
 
         log.debug("Creating New Customer - in controller");
 
