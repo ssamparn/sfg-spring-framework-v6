@@ -1,0 +1,31 @@
+---
+version: "3.8"
+
+services:
+  mysql-container:
+    image: mysql:latest
+    container_name: spring-6-rest-mvc-mysql
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    cap_add:
+      - SYS_NICE
+    restart: always
+    ports:
+      - "3307:3306"
+    expose:
+      - 3307
+    environment:
+        MYSQL_DATABASE: spring_6_rest_mvc
+        MYSQL_ROOT_PASSWORD: password
+        MYSQL_ROOT_HOST: '%'
+    volumes:
+      - mysql-data-container:/var/lib/mysql
+      - ./mysql-data-container/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - spring-6-rest-mvc-network
+
+volumes:
+  mysql-data-container:
+    driver: local
+
+networks:
+  spring-6-rest-mvc-network:

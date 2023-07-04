@@ -4,6 +4,38 @@ server:
 logging:
   level:
     com.sfg.course.spring6restmvc: debug
+    org.hibernate.orm.jdbc.bind: trace
+
+spring:
+  data:
+    jpa:
+      repositories:
+        bootstrap-mode: default
+  datasource:
+    url: jdbc:h2:mem:spring-rest-mvc
+    username: user
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+    show-sql: true
+    defer-datasource-initialization: false
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
+  sql:
+    init:
+      mode: embedded
+  flyway:
+    enabled: false
 
 #spring:
 #  security:
