@@ -4,6 +4,20 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: spring_admin
     password: password
+    hikari:
+      pool-name: local-db-pool
+      maximum-pool-size: 5
+      data-source-properties:
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        useServerPrepStmts: true
+        useLocalSessionState: true
+        rewriteBatchedStatements: true
+        cacheResultSetMetadata: true
+        cacheServerConfiguration: true
+        elideSetAutoCommits: true
+        maintainTimeStats: false
   jpa:
     database: mysql
     database-platform: org.hibernate.dialect.MySQLDialect

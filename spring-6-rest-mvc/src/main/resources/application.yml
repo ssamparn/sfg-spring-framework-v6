@@ -23,6 +23,14 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+#      jakarta:
+#        persistence:
+#          schema-generation:
+#            scripts:
+#              action: drop-and-create
+#              create-source: metadata
+#              drop-target: drop-and-create.sql
+#              create-target: drop-and-create.sql
     show-sql: true
     defer-datasource-initialization: false
   h2:

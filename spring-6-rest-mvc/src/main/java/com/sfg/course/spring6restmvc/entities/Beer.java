@@ -12,7 +12,9 @@ import java.util.UUID;
 
 import com.sfg.course.spring6restmvc.model.BeerStyle;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.Parameter;
+import org.hibernate.type.SqlTypes;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -43,7 +45,8 @@ public class Beer {
                             value = "org.hibernate.id.uuid.CustomVersionOneStrategy"
                     )
             })
-    @Column(name = "id", updatable = false, nullable = false)
+    @JdbcTypeCode(SqlTypes.CHAR)
+    @Column(name = "id", length = 36, columnDefinition = "varchar(36)", updatable = false, nullable = false)
     private UUID id;
 
     @Version
