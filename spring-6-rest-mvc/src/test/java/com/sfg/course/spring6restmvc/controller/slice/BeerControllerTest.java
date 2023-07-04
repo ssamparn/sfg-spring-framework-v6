@@ -120,6 +120,20 @@ public class BeerControllerTest {
     }
 
     @Test
+    void testUpdateBeerBlankName() throws Exception {
+        BeerDto beer = beerServiceImpl.listBeers().get(0);
+        beer.setBeerName("");
+        given(beerService.updateBeerById(any(), any())).willReturn(Optional.of(beer));
+
+        mockMvc.perform(put(BeerController.BEER_PATH_ID, beer.getId())
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(beer)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.length()", is(1)));
+    }
+
+    @Test
     void testCreateNewBeer() throws Exception {
         BeerDto beer = beerServiceImpl.listBeers().get(0);
         beer.setVersion(null);
@@ -133,6 +147,22 @@ public class BeerControllerTest {
                         .content(objectMapper.writeValueAsString(beer)))
                 .andExpect(status().isCreated())
                 .andExpect(header().exists("Location"));
+    }
+
+    @Test
+    void testCreateBeerNullBeerName() throws Exception {
+
+        BeerDto beerDto = BeerDto.builder().build();
+
+        given(beerService.saveNewBeer(any(BeerDto.class))).willReturn(beerServiceImpl.listBeers().get(1));
+
+        mockMvc.perform(post(BeerController.BEER_PATH)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(beerDto)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.length()", is(6)))
+                .andReturn();
     }
 
     @Test

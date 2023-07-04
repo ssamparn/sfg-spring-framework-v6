@@ -34,6 +34,8 @@ public class Customer {
     private Integer version;
 
     private String name;
+
     private LocalDateTime createdDate;
+
     private LocalDateTime updateDate;
 }

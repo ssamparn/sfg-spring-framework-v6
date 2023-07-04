@@ -13,6 +13,7 @@ import com.sfg.course.spring6restmvc.service.BeerService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -33,7 +34,7 @@ public class BeerController {
     private final BeerService beerService;
 
     @PostMapping(value = BEER_PATH)
-    public ResponseEntity<BeerDto> newBeer(@RequestBody BeerDto beer){
+    public ResponseEntity<BeerDto> newBeer(@Validated @RequestBody BeerDto beer){
 
         log.debug("Creating New Beer - in controller");
 
@@ -63,11 +64,11 @@ public class BeerController {
     }
 
     @PutMapping(BEER_PATH_ID)
-    public ResponseEntity<BeerDto> updateById(@PathVariable("beerId") UUID beerId, @RequestBody BeerDto beer) {
+    public ResponseEntity<BeerDto> updateById(@PathVariable("beerId") UUID beerId, @Validated @RequestBody BeerDto beer) {
 
         Optional<BeerDto> beerDto = beerService.updateBeerById(beerId, beer);
 
-        if(beerDto.isEmpty()) {
+        if (beerDto.isEmpty()) {
             throw new NotFoundException();
         }
 

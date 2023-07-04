@@ -66,7 +66,9 @@ public class CustomerController {
 
         log.debug("Updating a Customer byId - in controller");
 
-        customerService.updateCustomerById(customerId, customer);
+        if (customerService.updateCustomerById(customerId, customer).isEmpty()){
+            throw new NotFoundException();
+        }
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -83,7 +85,9 @@ public class CustomerController {
     @DeleteMapping(CUSTOMER_PATH_ID)
     public ResponseEntity<Void> deleteCustomerById(@PathVariable("customerId") UUID customerId) {
 
-        customerService.deleteCustomerById(customerId);
+        if (!customerService.deleteCustomerById(customerId)) {
+            throw new NotFoundException();
+        }
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
