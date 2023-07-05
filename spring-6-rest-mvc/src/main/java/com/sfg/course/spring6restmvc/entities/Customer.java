@@ -44,6 +44,9 @@ public class Customer {
     @Column(name = "id", length = 36, columnDefinition = "varchar(36)", updatable = false, nullable = false)
     private UUID id;
 
+    @Column(length = 255)
+    private String email;
+
     @Version
     private Integer version;
 
