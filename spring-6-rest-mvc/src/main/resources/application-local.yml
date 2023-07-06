@@ -22,7 +22,7 @@ spring:
     database: mysql
     database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
@@ -36,4 +36,4 @@ spring:
     enabled: true
     user: spring_admin
     password: password
-    locations: classpath:db/migrations
+    locations: classpath:db/migration

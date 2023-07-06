@@ -17,6 +17,8 @@ import org.hibernate.annotations.Parameter;
 import org.hibernate.type.SqlTypes;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -59,6 +61,7 @@ public class Beer {
     private String beerName;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
     private BeerStyle beerStyle;
 
     @NotNull
