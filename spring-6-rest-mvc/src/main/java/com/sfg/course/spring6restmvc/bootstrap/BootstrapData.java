@@ -2,18 +2,26 @@ package com.sfg.course.spring6restmvc.bootstrap;
 
 import lombok.RequiredArgsConstructor;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 import com.sfg.course.spring6restmvc.entities.Beer;
 import com.sfg.course.spring6restmvc.entities.Customer;
 import com.sfg.course.spring6restmvc.model.BeerStyle;
+import com.sfg.course.spring6restmvc.model.csv.BeerCsvRecord;
 import com.sfg.course.spring6restmvc.repositories.BeerRepository;
 import com.sfg.course.spring6restmvc.repositories.CustomerRepository;
+import com.sfg.course.spring6restmvc.services.BeerCsvService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ResourceUtils;
 
 @Component
 @RequiredArgsConstructor
@@ -21,11 +29,45 @@ public class BootstrapData implements CommandLineRunner {
 
     private final BeerRepository beerRepository;
     private final CustomerRepository customerRepository;
+    private final BeerCsvService beerCsvService;
 
+    @Transactional
     @Override
-    public void run(String... args) {
+    public void run(String... args) throws Exception{
         loadBeerData();
+        loadCsvData();
         loadCustomerData();
+    }
+
+    private void loadCsvData() throws FileNotFoundException {
+        if (beerRepository.count() < 10) {
+            File file = ResourceUtils.getFile("classpath:csv/beers.csv");
+
+            List<BeerCsvRecord> recs = beerCsvService.convertCsv(file);
+
+            recs.forEach(csvRecord -> {
+                BeerStyle beerStyle = switch (csvRecord.getStyle()) {
+                    case "American Pale Lager" -> BeerStyle.LAGER;
+                    case "American Pale Ale (APA)", "American Black Ale", "Belgian Dark Ale", "American Blonde Ale" ->
+                            BeerStyle.ALE;
+                    case "American IPA", "American Double / Imperial IPA", "Belgian IPA" -> BeerStyle.IPA;
+                    case "American Porter" -> BeerStyle.PORTER;
+                    case "Oatmeal Stout", "American Stout" -> BeerStyle.STOUT;
+                    case "Saison / Farmhouse Ale" -> BeerStyle.SAISON;
+                    case "Fruit / Vegetable Beer", "Winter Warmer", "Berliner Weissbier" -> BeerStyle.WHEAT;
+                    case "English Pale Ale" -> BeerStyle.PALE_ALE;
+                    default -> BeerStyle.PILSNER;
+                };
+
+                beerRepository.save(Beer.builder()
+                        .beerName(StringUtils.abbreviate(csvRecord.getBeer(), 50))
+                        .beerStyle(beerStyle)
+                        .price(BigDecimal.TEN)
+                        .upc(csvRecord.getRow().toString())
+                        .quantityOnHand(csvRecord.getCount())
+                        .build());
+            });
+        }
     }
 
     private void loadBeerData() {

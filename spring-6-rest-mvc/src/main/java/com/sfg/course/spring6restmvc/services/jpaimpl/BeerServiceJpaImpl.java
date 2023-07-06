@@ -1,4 +1,4 @@
-package com.sfg.course.spring6restmvc.service.jpaimpl;
+package com.sfg.course.spring6restmvc.services.jpaimpl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 import com.sfg.course.spring6restmvc.mappers.BeerMapper;
 import com.sfg.course.spring6restmvc.model.BeerDto;
 import com.sfg.course.spring6restmvc.repositories.BeerRepository;
-import com.sfg.course.spring6restmvc.service.BeerService;
+import com.sfg.course.spring6restmvc.services.BeerService;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;

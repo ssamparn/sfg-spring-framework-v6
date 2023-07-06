@@ -1,4 +1,4 @@
-package com.sfg.course.spring6restmvc.service.impl;
+package com.sfg.course.spring6restmvc.services.impl;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -13,7 +13,7 @@ import java.util.UUID;
 
 import com.sfg.course.spring6restmvc.model.BeerDto;
 import com.sfg.course.spring6restmvc.model.BeerStyle;
-import com.sfg.course.spring6restmvc.service.BeerService;
+import com.sfg.course.spring6restmvc.services.BeerService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 

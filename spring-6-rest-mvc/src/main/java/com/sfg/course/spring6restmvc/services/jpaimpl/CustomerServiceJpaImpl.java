@@ -1,4 +1,4 @@
-package com.sfg.course.spring6restmvc.service.jpaimpl;
+package com.sfg.course.spring6restmvc.services.jpaimpl;
 
 import lombok.RequiredArgsConstructor;
 
@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import com.sfg.course.spring6restmvc.mappers.CustomerMapper;
 import com.sfg.course.spring6restmvc.model.CustomerDto;
 import com.sfg.course.spring6restmvc.repositories.CustomerRepository;
-import com.sfg.course.spring6restmvc.service.CustomerService;
+import com.sfg.course.spring6restmvc.services.CustomerService;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;

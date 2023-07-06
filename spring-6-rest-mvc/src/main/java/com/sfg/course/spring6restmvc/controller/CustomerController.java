@@ -8,7 +8,7 @@ import java.util.UUID;
 
 import com.sfg.course.spring6restmvc.exception.NotFoundException;
 import com.sfg.course.spring6restmvc.model.CustomerDto;
-import com.sfg.course.spring6restmvc.service.CustomerService;
+import com.sfg.course.spring6restmvc.services.CustomerService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

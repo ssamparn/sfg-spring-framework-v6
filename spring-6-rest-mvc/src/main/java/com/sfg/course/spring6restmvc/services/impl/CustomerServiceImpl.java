@@ -1,4 +1,4 @@
-package com.sfg.course.spring6restmvc.service.impl;
+package com.sfg.course.spring6restmvc.services.impl;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import com.sfg.course.spring6restmvc.model.CustomerDto;
-import com.sfg.course.spring6restmvc.service.CustomerService;
+import com.sfg.course.spring6restmvc.services.CustomerService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 

@@ -1,4 +1,4 @@
-package com.sfg.course.spring6restmvc.service;
+package com.sfg.course.spring6restmvc.services;
 
 import java.util.List;
 import java.util.Optional;
