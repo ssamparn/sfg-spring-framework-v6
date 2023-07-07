@@ -3,12 +3,14 @@ package com.sfg.course.spring6restmvc.services.jpaimpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
+import com.sfg.course.spring6restmvc.entities.Beer;
 import com.sfg.course.spring6restmvc.mappers.BeerMapper;
 import com.sfg.course.spring6restmvc.model.BeerDto;
 import com.sfg.course.spring6restmvc.repositories.BeerRepository;
@@ -28,9 +30,21 @@ public class BeerServiceJpaImpl implements BeerService {
 
     @Override
     public List<BeerDto> listBeers(String beerName) {
-        return beerRepository.findAll()
+
+        List<Beer> beerList;
+        
+        if (StringUtils.hasText(beerName)) {
+            beerList = listBeersByName(beerName);
+        } else {
+            beerList = beerRepository.findAll();
+        }
+        return beerList
                 .stream().map(beerMapper::beerToBeerDto)
                 .collect(Collectors.toList());
+    }
+
+    public List<Beer> listBeersByName(String beerName) {
+        return beerRepository.findAllByBeerNameIsLikeIgnoreCase("%" + beerName + "%");
     }
 
     @Override

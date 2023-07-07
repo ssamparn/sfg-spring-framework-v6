@@ -63,10 +63,10 @@ class BeerIntegrationTest {
     @Test
     void tesListBeersByName() throws Exception {
         mockMvc.perform(get(BeerController.BEER_PATH)
-                        .queryParam("beerName", "IPA"))
-//                        .queryParam("pageSize", "800"))
+                        .queryParam("beerName", "IPA")
+                        .queryParam("pageSize", "800"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.size()", is(100)));
+                .andExpect(jsonPath("$.size()", is(336)));
     }
 
     @Test
@@ -169,7 +169,7 @@ class BeerIntegrationTest {
     void testListBeers() {
         List<BeerDto> dtos = beerController.listBeers(null);
 
-        assertThat(dtos.size()).isEqualTo(100);
+        assertThat(dtos.size()).isEqualTo(2413);
     }
 
     @Rollback

@@ -22,6 +22,6 @@ class BeerCsvServiceImplTest {
 
         List<BeerCsvRecord> recs = beerCsvService.convertCsv(file);
 
-        assertThat(recs.size()).isEqualTo(97);
+        assertThat(recs.size()).isEqualTo(2410);
     }
 }
