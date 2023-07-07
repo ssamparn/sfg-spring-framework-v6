@@ -5,9 +5,10 @@ import java.util.Optional;
 import java.util.UUID;
 
 import com.sfg.course.spring6restmvc.model.BeerDto;
+import com.sfg.course.spring6restmvc.model.BeerStyle;
 
 public interface BeerService {
-    List<BeerDto> listBeers(String beerName);
+    List<BeerDto> listBeers(String beerName, BeerStyle beerStyle, Boolean showInventory);
 
     Optional<BeerDto> getBeerById(UUID id);
 

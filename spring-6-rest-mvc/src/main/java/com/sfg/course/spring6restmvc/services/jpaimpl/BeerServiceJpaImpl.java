@@ -3,7 +3,6 @@ package com.sfg.course.spring6restmvc.services.jpaimpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -13,6 +12,7 @@ import java.util.stream.Collectors;
 import com.sfg.course.spring6restmvc.entities.Beer;
 import com.sfg.course.spring6restmvc.mappers.BeerMapper;
 import com.sfg.course.spring6restmvc.model.BeerDto;
+import com.sfg.course.spring6restmvc.model.BeerStyle;
 import com.sfg.course.spring6restmvc.repositories.BeerRepository;
 import com.sfg.course.spring6restmvc.services.BeerService;
 import org.springframework.context.annotation.Primary;
@@ -29,18 +29,35 @@ public class BeerServiceJpaImpl implements BeerService {
     private final BeerRepository beerRepository;
 
     @Override
-    public List<BeerDto> listBeers(String beerName) {
+    public List<BeerDto> listBeers(String beerName, BeerStyle beerStyle, Boolean showInventory) {
 
         List<Beer> beerList;
-        
-        if (StringUtils.hasText(beerName)) {
+
+        if(StringUtils.hasText(beerName) && beerStyle == null) {
             beerList = listBeersByName(beerName);
+        } else if (!StringUtils.hasText(beerName) && beerStyle != null){
+            beerList = listBeersByStyle(beerStyle);
+        } else if (StringUtils.hasText(beerName) && beerStyle != null){
+            beerList = listBeersByNameAndStyle(beerName, beerStyle);
         } else {
             beerList = beerRepository.findAll();
         }
-        return beerList
-                .stream().map(beerMapper::beerToBeerDto)
+
+        if (showInventory != null && !showInventory) {
+            beerList.forEach(beer -> beer.setQuantityOnHand(null));
+        }
+
+        return beerList.stream()
+                .map(beerMapper::beerToBeerDto)
                 .collect(Collectors.toList());
+    }
+
+    public List<Beer> listBeersByNameAndStyle(String beerName, BeerStyle beerStyle) {
+        return beerRepository.findAllByBeerNameIsLikeIgnoreCaseAndBeerStyle("%" + beerName + "%", beerStyle);
+    }
+
+    public List<Beer> listBeersByStyle(BeerStyle beerStyle) {
+        return beerRepository.findAllByBeerStyle(beerStyle);
     }
 
     public List<Beer> listBeersByName(String beerName) {
