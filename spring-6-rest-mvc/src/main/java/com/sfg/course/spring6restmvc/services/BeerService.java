@@ -7,7 +7,7 @@ import java.util.UUID;
 import com.sfg.course.spring6restmvc.model.BeerDto;
 
 public interface BeerService {
-    List<BeerDto> listBeers();
+    List<BeerDto> listBeers(String beerName);
 
     Optional<BeerDto> getBeerById(UUID id);
 
