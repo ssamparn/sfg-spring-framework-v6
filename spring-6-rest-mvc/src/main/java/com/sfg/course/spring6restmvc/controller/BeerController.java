@@ -11,6 +11,7 @@ import com.sfg.course.spring6restmvc.exception.NotFoundException;
 import com.sfg.course.spring6restmvc.model.BeerDto;
 import com.sfg.course.spring6restmvc.model.BeerStyle;
 import com.sfg.course.spring6restmvc.services.BeerService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,12 +50,14 @@ public class BeerController {
     }
 
     @GetMapping(value = BEER_PATH)
-    public List<BeerDto> listBeers(@RequestParam(value = "beerName", required = false) String beerName,
+    public Page<BeerDto> listBeers(@RequestParam(value = "beerName", required = false) String beerName,
                                    @RequestParam(value = "beerStyle", required = false) BeerStyle beerStyle,
-                                   @RequestParam(value = "showInventory", required = false) Boolean showInventory) {
+                                   @RequestParam(value = "showInventory", required = false) Boolean showInventory,
+                                   @RequestParam(value = "pageNumber", required = false) Integer pageNumber,
+                                   @RequestParam(value = "pageSize", required = false) Integer pageSize) {
         log.debug("Get all Beer(s) - in controller");
 
-        return beerService.listBeers(beerName, beerStyle, showInventory);
+        return beerService.listBeers(beerName, beerStyle, showInventory, pageNumber, pageSize);
     }
 
     @GetMapping(value = BEER_PATH_ID)

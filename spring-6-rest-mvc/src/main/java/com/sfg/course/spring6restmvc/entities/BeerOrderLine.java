@@ -6,9 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.sql.Timestamp;
 import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -21,18 +19,16 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Version;
 
 @Getter
 @Setter
-@Builder
-@Table(name = "customer")
-@Entity(name = "customer")
-@AllArgsConstructor
 @NoArgsConstructor
-public class Customer {
+@AllArgsConstructor
+@Entity
+@Builder
+public class BeerOrderLine {
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -44,27 +40,32 @@ public class Customer {
                             name = "uuid_gen_strategy_class",
                             value = "org.hibernate.id.uuid.CustomVersionOneStrategy"
                     )
-            })
+            }
+    )
     @JdbcTypeCode(SqlTypes.CHAR)
-    @Column(name = "id", length = 36, columnDefinition = "varchar(36)", updatable = false, nullable = false)
+    @Column(name = "id", length = 36, columnDefinition = "varchar(36)", updatable = false, nullable = false )
     private UUID id;
 
-    private String name;
-
-    @Column(length = 255)
-    private String email;
-
     @Version
-    private Integer version;
+    private Long version;
 
     @CreationTimestamp
     @Column(updatable = false)
-    private LocalDateTime createdDate;
+    private Timestamp createdDate;
 
     @UpdateTimestamp
-    private LocalDateTime updateDate;
+    private Timestamp lastModifiedDate;
 
-    @Builder.Default
-    @OneToMany(mappedBy = "customer")
-    private Set<BeerOrder> beerOrders = new HashSet<>();
+    private Integer orderQuantity = 0;
+    private Integer quantityAllocated = 0;
+
+    public boolean isNew() {
+        return this.id == null;
+    }
+
+    @ManyToOne
+    private BeerOrder beerOrder;
+
+    @ManyToOne
+    private Beer beer;
 }
