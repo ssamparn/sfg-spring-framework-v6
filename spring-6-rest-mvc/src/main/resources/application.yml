@@ -7,6 +7,11 @@ logging:
     org.hibernate.orm.jdbc.bind: trace
 
 spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9000
   data:
     jpa:
       repositories:
@@ -44,10 +49,3 @@ spring:
       mode: embedded
   flyway:
     enabled: false
-
-#spring:
-#  security:
-#    oauth2:
-#      resourceserver:
-#        jwt:
-#          issuer-uri: http://localhost:9000
