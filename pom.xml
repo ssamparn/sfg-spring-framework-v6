@@ -19,5 +19,7 @@
     <module>spring-6-rest-mvc</module>
     <module>spring-6-auth-server</module>
     <module>spring-6-rest-template</module>
+    <module>spring-6-reactive-webflux</module>
+    <module>spring-6-reactive-webclient</module>
   </modules>
 </project>

@@ -12,7 +12,7 @@
 	<groupId>com.sfg.course</groupId>
 	<artifactId>spring-6-webapp</artifactId>
 	<version>1.0.0</version>
-	<name>Spring v6 Web Application</name>
+	<name>Spring v6 - Web Application</name>
 	<description>Introduction to Spring Framework v6</description>
 
 	<properties>

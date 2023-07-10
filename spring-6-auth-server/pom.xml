@@ -12,8 +12,8 @@
 	<groupId>com.sfg.course</groupId>
 	<artifactId>spring-6-auth-server</artifactId>
 	<version>1.0.0</version>
-	<name>Spring v6 Authorization Server</name>
-	<description>Demo project for Spring Boot</description>
+	<name>Spring v6 - Authorization Server</name>
+	<description>Spring v6 Authorization Server</description>
 
 	<properties>
 		<java.version>17</java.version>
