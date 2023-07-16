@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
-//import static org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers.mockOAuth2Login;
+import static org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers.mockOAuth2Login;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest
@@ -24,7 +24,7 @@ class CustomerControllerTest {
     @Test
     void testPatchIdNotFound() {
         webTestClient
-//                .mutateWith(mockOAuth2Login())
+                .mutateWith(mockOAuth2Login())
                 .patch()
                 .uri(CustomerController.CUSTOMER_PATH_ID, 999)
                 .body(Mono.just(getCustomerDto()), CustomerDto.class)
@@ -35,7 +35,7 @@ class CustomerControllerTest {
     @Test
     void testDeleteNotFound() {
         webTestClient
-//                .mutateWith(mockOAuth2Login())
+                .mutateWith(mockOAuth2Login())
                 .delete()
                 .uri(CustomerController.CUSTOMER_PATH_ID, 999)
                 .exchange()
@@ -49,7 +49,7 @@ class CustomerControllerTest {
         customerDto.setCustomerName("");
 
         webTestClient
-//                .mutateWith(mockOAuth2Login())
+                .mutateWith(mockOAuth2Login())
                 .put()
                 .uri(CustomerController.CUSTOMER_PATH_ID, 1)
                 .body(Mono.just(customerDto), CustomerDto.class)
@@ -60,7 +60,7 @@ class CustomerControllerTest {
     @Test
     void testUpdateCustomerNotFound() {
         webTestClient
-//                .mutateWith(mockOAuth2Login())
+                .mutateWith(mockOAuth2Login())
                 .put()
                 .uri(CustomerController.CUSTOMER_PATH_ID, 999)
                 .body(Mono.just(getCustomerDto()), CustomerDto.class)
@@ -71,7 +71,7 @@ class CustomerControllerTest {
     @Test
     void testGetByIdNotFound() {
         webTestClient
-//                .mutateWith(mockOAuth2Login())
+                .mutateWith(mockOAuth2Login())
                 .get().uri(CustomerController.CUSTOMER_PATH_ID, 999)
                 .exchange()
                 .expectStatus().isNotFound();
@@ -81,7 +81,7 @@ class CustomerControllerTest {
     @Order(999)
     void testDeleteCustomer() {
         webTestClient
-//                .mutateWith(mockOAuth2Login())
+                .mutateWith(mockOAuth2Login())
                 .delete()
                 .uri(CustomerController.CUSTOMER_PATH_ID, 1)
                 .exchange()
@@ -93,7 +93,7 @@ class CustomerControllerTest {
     @Order(3)
     void testUpdateCustomer() {
         webTestClient
-//                .mutateWith(mockOAuth2Login())
+                .mutateWith(mockOAuth2Login())
                 .put()
                 .uri(CustomerController.CUSTOMER_PATH_ID, 1)
                 .body(Mono.just(getCustomerDto()), CustomerDto.class)
@@ -105,7 +105,7 @@ class CustomerControllerTest {
     void testCreateCustomer() {
 
         webTestClient
-//                .mutateWith(mockOAuth2Login())
+                .mutateWith(mockOAuth2Login())
                 .post().uri(CustomerController.CUSTOMER_PATH)
                 .body(Mono.just(getCustomerDto()), CustomerDto.class)
                 .header("Content-Type", "application/json")
@@ -118,7 +118,7 @@ class CustomerControllerTest {
     @Order(1)
     void testGetById() {
         webTestClient
-//                .mutateWith(mockOAuth2Login())
+                .mutateWith(mockOAuth2Login())
                 .get().uri(CustomerController.CUSTOMER_PATH_ID, 1)
                 .exchange()
                 .expectStatus().isOk()
@@ -130,7 +130,7 @@ class CustomerControllerTest {
     @Order(2)
     void testListCustomers() {
         webTestClient
-//                .mutateWith(mockOAuth2Login())
+                .mutateWith(mockOAuth2Login())
                 .get().uri(CustomerController.CUSTOMER_PATH)
                 .exchange()
                 .expectStatus().isOk()

@@ -1,3 +1,10 @@
 logging:
   level:
     org.springframework.r2dbc: trace
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9000
