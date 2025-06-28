@@ -1,4 +1,4 @@
-package com.sfg.course.spring6webapp.domain;
+package com.sfg.course.spring6webapp.entity;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -22,7 +22,7 @@ import jakarta.persistence.ManyToOne;
 @Setter
 @ToString
 @EqualsAndHashCode
-public class Book {
+public class BookEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,10 +34,10 @@ public class Book {
     @JoinTable(name = "author_book",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id"))
-    private Set<Author> authors = new HashSet<>();
+    private Set<AuthorEntity> authors = new HashSet<>();
 
     @ManyToOne
-    private Publisher publisher;
+    private PublisherEntity publisher;
 }
 
 

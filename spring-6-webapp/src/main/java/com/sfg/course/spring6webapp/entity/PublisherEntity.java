@@ -1,36 +1,38 @@
-package com.sfg.course.spring6webapp.domain;
+package com.sfg.course.spring6webapp.entity;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 
 @Entity
 @Getter
 @Setter
 @ToString
 @EqualsAndHashCode
-public class Author {
+public class PublisherEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String firstName;
-    private String lastName;
 
-    @ManyToMany(mappedBy = "authors")
-    private Set<Book> books = new HashSet<>();
+    private String publisherName;
+    private String address;
+    private String city;
+    private String state;
+    private String zipCode;
+
+    @OneToMany(mappedBy = "publisher")
+    private Set<BookEntity> books;
 }
-
 
 
 

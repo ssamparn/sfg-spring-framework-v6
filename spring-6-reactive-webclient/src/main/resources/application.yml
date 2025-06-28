@@ -1,3 +1,6 @@
+server:
+  port: 8081
+
 webclient:
   root-url: http://localhost:8080
 
